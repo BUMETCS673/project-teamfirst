@@ -19,7 +19,7 @@ The project description will go there
 ## Team Presentation
 
 ### 1. Jim Penner
-Add a paragraph about yourself here...
+Hi, I live in Brisbane Australia and am originally from western Canada:  Calgary.  Relatively new to Computer Science and coding, I have run a financial advisory firm for 22+ years and began 3 years ago working with some colleagues on a FinTech offering.  My skills are more organisational and leadership, and yet I have been able to get some fintech and other computing/coding knowledge over the past 3-4 years.  Looking forward to the collaboration, and Happy Mothers Day to any Mom's in the group!  
 
 ### 2. Shenxiao Li
 Add a paragraph about yourself here...
