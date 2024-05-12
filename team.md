@@ -34,7 +34,7 @@ Add a paragraph about yourself here...
 Add a paragraph about yourself here...
 
 ### 6. Jordany Arnaud
-My name is Jordany. I currently reside in Orlando, FL, but I am originally from Haiti. This class is the final step to completing my MS in Software Development Program. I have been working as a Software developer for about  9 years. I am excited to collaborate with all of you , especially the members of Team 1.
+Hi, I currently reside in Orlando, FL, but I am originally from Haiti. This class is the final step to completing my MS in Software Development Program. I have been working as a Software developer for about  9 years. I am excited to collaborate with all of you , especially the members of Team 1.
 
 ## Acknowledgments
 This project is created for educational purposes and as an assignment for the MET CS673 course.
