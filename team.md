@@ -27,7 +27,7 @@ Hi. Team 1. This is Shenxiao. You can also call me Sherry. I have been working a
 `This is Chaozheng from SanFrancisco,nice to meet everyone and we can work together for a micro service project `
 
 ### 4. Hunter Washburne
-Add a paragraph about yourself here...
+I am a former Shakespearean actor who is transitioning into a life of coding and tech in the wake of the pandemic. I currently work in a toystore in Dallas, and will graduate from BU with a CS degree as soon as I finish my last two classes.
 
 ### 5. Jordany Arnaud
 Hi, I currently reside in Orlando, FL, but I am originally from Haiti. This class is the final step to completing my MS in Software Development Program. I have been working as a Software developer for about  9 years. I am excited to collaborate with all of you , especially the members of Team 1.
