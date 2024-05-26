@@ -63,4 +63,11 @@ public class UsersServiceImpl implements UserService {
 		user.setUpdatedAt(LocalDateTime.now());
 		return this.userRepository.save(user);
 	}
+
+
+	@Override
+	public UserDto getMyProfile(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

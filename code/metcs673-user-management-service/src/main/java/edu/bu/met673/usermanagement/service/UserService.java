@@ -19,7 +19,7 @@ public interface UserService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	public UserDto registerUser(UserDto userDto) throws ServiceException;
+	UserDto registerUser(UserDto userDto) throws ServiceException;
 
 	/**
 	 * Update information about a given user
@@ -29,6 +29,11 @@ public interface UserService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	public UserDto updateUser(Long userId, UserDto userDto) throws ServiceException;
+	UserDto updateUser(Long userId, UserDto userDto) throws ServiceException;
+	
+	
+	UserDto getMyProfile(Long userId);
+	
+	
 	
 }

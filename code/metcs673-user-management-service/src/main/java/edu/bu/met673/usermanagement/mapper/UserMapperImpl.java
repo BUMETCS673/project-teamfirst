@@ -1,7 +1,5 @@
 package edu.bu.met673.usermanagement.mapper;
 
-import javax.annotation.processing.Generated;
-
 import org.springframework.stereotype.Component;
 
 import edu.bu.met673.usermanagement.api.model.RoleDto;
@@ -9,11 +7,6 @@ import edu.bu.met673.usermanagement.api.model.UserDto;
 import edu.bu.met673.usermanagement.entities.User;
 import edu.bu.met673.usermanagement.entities.UserRole;
 
-@Generated(
-    value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-19T18:14:54-0400",
-    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 19.0.2 (Oracle Corporation)"
-)
 @Component
 public class UserMapperImpl implements UserMapper {
 
