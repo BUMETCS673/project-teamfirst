@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.notification_service.NotificationServiceApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-27T21:14:22" hostname="Shenxiaos-MacBook-Pro.local" time="0.41">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.notification_service.NotificationServiceApplicationTests" time="0.41"/>
+  <system-out><![CDATA[17:14:21.818 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.notification_service.NotificationServiceApplicationTests]: NotificationServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:14:21.878 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.notification_service.NotificationServiceApplication for test class com.example.notification_service.NotificationServiceApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.6)
+
+2024-05-27T17:14:22.105-04:00  INFO 10021 --- [notification-service] [    Test worker] .e.n.NotificationServiceApplicationTests : Starting NotificationServiceApplicationTests using Java 17.0.11 with PID 10021 (started by lishenxiao in /Users/lishenxiao/Dropbox/My Mac (Shenxiao’s MacBook Pro)/Desktop/BU Courses/CS 673 Software Engineering/project/notification-service)
+2024-05-27T17:14:22.106-04:00  INFO 10021 --- [notification-service] [    Test worker] .e.n.NotificationServiceApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2024-05-27T17:14:22.786-04:00  INFO 10021 --- [notification-service] [    Test worker] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-05-27T17:14:22.815-04:00  INFO 10021 --- [notification-service] [    Test worker] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#26837057:0/SimpleConnection@34136bd1 [delegate=amqp://guest@127.0.0.1:5672/, localPort=52231]
+2024-05-27T17:14:22.845-04:00  INFO 10021 --- [notification-service] [    Test worker] .e.n.NotificationServiceApplicationTests : Started NotificationServiceApplicationTests in 0.872 seconds (process running for 1.489)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
