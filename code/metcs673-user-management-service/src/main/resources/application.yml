@@ -17,3 +17,11 @@ spring:
       ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+        
+okta:
+  oauth2:
+    # Replace with the domain of your Auth0 tenant.
+    issuer: https://dev-v4utikpr1mrs4k05.us.auth0.com/
+    # Replace with the API Identifier for your Auth0 API.
+    audience: http://localhost:9983
