@@ -4,24 +4,47 @@ server:
 spring:
   application:
     name: metcs673-user-maagement-service
-    
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Replace with the domain of your Auth0 tenant.
+          # Note the trailing slash is important!
+          issuer-uri: https://dev-v4utikpr1mrs4k05.us.auth0.com/  
 
   datasource:
-    url: ${DB_URL:jdbc:mariadb://localhost:3307/metcs673_um_servivice_db}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWROD:wizini!87}
-    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${DB_URL:jdbc:postgresql://metcs673-14521.5xj.gcp-us-central1.cockroachlabs.cloud:26257/metcs673_um_service_db}
+    username: ${DB_USERNAME:metcs673}
+    password: ${DB_PASSWROD:vqCooompH0s3gxTWdv_hEg}
+
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-        
+
+auth0:
+  audience: http://localhost:9983
+       
 okta:
   oauth2:
     # Replace with the domain of your Auth0 tenant.
     issuer: https://dev-v4utikpr1mrs4k05.us.auth0.com/
     # Replace with the API Identifier for your Auth0 API.
     audience: http://localhost:9983
+    
+    
+logging:
+ pattern:
+  level: "%5p [%X{traceId:-},%X{spanId:-}]"
+    
+management:
+ tracing:
+  sampling:
+   probability: 1.0
+

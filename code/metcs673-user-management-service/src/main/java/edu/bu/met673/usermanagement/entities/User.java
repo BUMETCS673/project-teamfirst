@@ -22,6 +22,7 @@ public class User extends BaseEntity{
 	private String phone;
 	private String email;
 	private String username;
+	private String address;
 	private String city;
 	private String state;
 	@Column(name="postal_code")
@@ -29,6 +30,6 @@ public class User extends BaseEntity{
 	private String country;
 	
 	@ManyToOne
-    @JoinColumn(name="user_role_id", nullable=false)
-	private UserRole role;
+    @JoinColumn(name="user_type_id", nullable=false)
+	private UserType userType;
 }

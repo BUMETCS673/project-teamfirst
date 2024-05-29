@@ -2,10 +2,8 @@ package edu.bu.met673.usermanagement.mapper;
 
 import org.springframework.stereotype.Component;
 
-import edu.bu.met673.usermanagement.api.model.RoleDto;
 import edu.bu.met673.usermanagement.api.model.UserDto;
 import edu.bu.met673.usermanagement.entities.User;
-import edu.bu.met673.usermanagement.entities.UserRole;
 
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -20,7 +18,7 @@ public class UserMapperImpl implements UserMapper {
 
         user.setFirstname( dto.getFirstName() );
         user.setLastname( dto.getLastName() );
-        user.setId( dto.getId() );
+       // user.setId( dto.getId() );
         user.setCreatedAt( dto.getCreatedAt() );
         user.setUpdatedAt( dto.getUpdatedAt() );
         user.setIdentityProviderId( dto.getIdentityProviderId() );
@@ -31,7 +29,6 @@ public class UserMapperImpl implements UserMapper {
         user.setState( dto.getState() );
         user.setPostalCode( dto.getPostalCode() );
         user.setCountry( dto.getCountry() );
-        user.setRole( roleDtoToUserRole( dto.getRole() ) );
 
         return user;
     }
@@ -47,7 +44,7 @@ public class UserMapperImpl implements UserMapper {
         userDto.setFirstName( entity.getFirstname() );
         userDto.setLastName( entity.getLastname() );
         if ( entity.getId() != null ) {
-            userDto.setId( entity.getId() );
+           // userDto.setId( entity.getId() );
         }
         userDto.setIdentityProviderId( entity.getIdentityProviderId() );
         userDto.setPhone( entity.getPhone() );
@@ -57,42 +54,10 @@ public class UserMapperImpl implements UserMapper {
         userDto.setState( entity.getState() );
         userDto.setPostalCode( entity.getPostalCode() );
         userDto.setCountry( entity.getCountry() );
-        userDto.setRole( userRoleToRoleDto( entity.getRole() ) );
         userDto.setCreatedAt( entity.getCreatedAt() );
         userDto.setUpdatedAt( entity.getUpdatedAt() );
 
         return userDto;
     }
 
-    protected UserRole roleDtoToUserRole(RoleDto roleDto) {
-        if ( roleDto == null ) {
-            return null;
-        }
-
-        UserRole userRole = new UserRole();
-
-        userRole.setId( roleDto.getId() );
-        userRole.setName( roleDto.getName() );
-        userRole.setCreatedAt( roleDto.getCreatedAt() );
-        userRole.setUpdatedAt( roleDto.getUpdatedAt() );
-
-        return userRole;
-    }
-
-    protected RoleDto userRoleToRoleDto(UserRole userRole) {
-        if ( userRole == null ) {
-            return null;
-        }
-
-        RoleDto roleDto = new RoleDto();
-
-        if ( userRole.getId() != null ) {
-            roleDto.setId( userRole.getId() );
-        }
-        roleDto.setName( userRole.getName() );
-        roleDto.setCreatedAt( userRole.getCreatedAt() );
-        roleDto.setUpdatedAt( userRole.getUpdatedAt() );
-
-        return roleDto;
-    }
 }

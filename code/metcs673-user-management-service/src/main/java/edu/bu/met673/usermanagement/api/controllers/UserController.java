@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.bu.met673.usermanagement.api.model.UserDto;
 import edu.bu.met673.usermanagement.service.UserService;
+import io.micrometer.observation.annotation.Observed;
 import jakarta.annotation.security.RolesAllowed;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
+@Observed
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
 public class UserController {
@@ -24,15 +28,15 @@ public class UserController {
 
 	
 	@GetMapping("/{userId}/profile")
-	@RolesAllowed({"CUSTOMER"})
 	public ResponseEntity<UserDto> getProfile(@PathVariable(name="userId") Long userId){
 		UserDto user = new UserDto();
+		log.info("getProfile:::");
 		return ResponseEntity.ok().body(this.userService.registerUser(user));
 	}
 
 	@PutMapping("/{userId}/register")
-	@RolesAllowed({"CUSTOMER"})
 	public ResponseEntity<UserDto> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDto userDto) {
+		log.info("updateUser:::");
 		return ResponseEntity.ok().body(this.userService.updateUser(userId,userDto));
 	}
 

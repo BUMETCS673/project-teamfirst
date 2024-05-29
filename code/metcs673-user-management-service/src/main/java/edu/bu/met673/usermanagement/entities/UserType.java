@@ -20,14 +20,14 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name="UM_USER_ROLE")
+@Table(name="UM_USER_TYPE")
 @Data
-public class UserRole implements Serializable{
+public class UserType implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	protected Integer id;
-	private String name;
+	protected Long id;
+	private String type;
 	
 	@CreationTimestamp
 	@Column(name="created_at")
