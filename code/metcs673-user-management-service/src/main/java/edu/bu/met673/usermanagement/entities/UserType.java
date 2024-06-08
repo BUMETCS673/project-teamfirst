@@ -20,7 +20,7 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name="UM_USER_TYPE")
+@Table(name="um_user_type")
 @Data
 public class UserType implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -36,5 +36,4 @@ public class UserType implements Serializable{
 	@UpdateTimestamp
 	@Column(name="updated_at")
 	protected LocalDateTime updatedAt;
-	
 }

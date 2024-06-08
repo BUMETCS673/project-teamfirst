@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,17 +16,16 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author ajord
+ * @author ajordany
  *
  */
 @Data
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RequiredArgsConstructor
 public class UserDto implements Serializable {
   private static final long serialVersionUID = 1L;
   
-  private Integer id;
+  private Long id;
   private String identityProviderId;
   private String firstName;
   private String lastName;
@@ -39,6 +39,10 @@ public class UserDto implements Serializable {
   private String address;
   private String city;
   private String state;
+  private UserRole userRole;
+  private List<String> permissioins;
+  
+  
   private String postalCode;
   private String country;
   private LocalDateTime createdAt;

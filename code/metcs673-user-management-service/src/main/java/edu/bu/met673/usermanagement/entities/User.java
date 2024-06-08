@@ -1,15 +1,19 @@
 package edu.bu.met673.usermanagement.entities;
 
+import java.util.List;
+
+import edu.bu.met673.usermanagement.api.model.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="UM_USER")
+@Table(name="um_user")
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class User extends BaseEntity{
@@ -29,7 +33,10 @@ public class User extends BaseEntity{
 	private String postalCode;
 	private String country;
 	
-	@ManyToOne
-    @JoinColumn(name="user_type_id", nullable=false)
-	private UserType userType;
+	@Enumerated(EnumType.STRING)
+	@Column(name="user_role")
+	private UserRole userRole;
+	
+	@OneToMany(mappedBy="user")
+	private List<UserGroup> userGroup;
 }

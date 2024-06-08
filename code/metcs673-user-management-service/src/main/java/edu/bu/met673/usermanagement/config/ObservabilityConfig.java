@@ -20,5 +20,4 @@ public class ObservabilityConfig {
     ObservedAspect observedAspect(ObservationRegistry observationRegistry) {
         return new ObservedAspect(observationRegistry);
     }
-	
 }
