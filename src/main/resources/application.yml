@@ -1,4 +1,5 @@
 server:
+<<<<<<< HEAD
   port: 9907
   
 spring:
@@ -10,6 +11,19 @@ spring:
     url: ${DB_URL:jdbc:mariadb://localhost:3306/spring_alerts}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWROD:Dby310115}
+=======
+  port: 9982
+  
+spring:
+  application:
+    name: metcs673-user-management-service
+    
+
+  datasource:
+    url: ${DB_URL:jdbc:mariadb://localhost:3306/metcs673}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWROD:MySQLss1992}
+>>>>>>> user_management_initial_commit
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     show-sql: true

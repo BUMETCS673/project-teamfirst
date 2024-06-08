@@ -9,4 +9,8 @@ public interface ErrorCode {
     String getMessage();
 
     ErrorType getErrorType();
+    
+    String toString();
+   
+    ErrorResponse toErrorResponse();
 }

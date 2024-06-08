@@ -7,27 +7,25 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author ajord
+ * @author ajordany
  *
  */
 @Data
-@Valid
 @JsonIgnoreProperties(ignoreUnknown = true)
 @RequiredArgsConstructor
 public class UserDto implements Serializable {
   private static final long serialVersionUID = 1L;
   
-  private long id;
+  private Long id;
   private String identityProviderId;
   private String firstName;
   private String lastName;
@@ -38,12 +36,15 @@ public class UserDto implements Serializable {
   private String email;
   private Timestamp emailVerifiedAt;
   private String username;
-  private String stripeId;
+  private String address;
   private String city;
   private String state;
+  private UserRole userRole;
+  private List<String> permissioins;
+  
+  
   private String postalCode;
   private String country;
-  private RoleDto role;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 }

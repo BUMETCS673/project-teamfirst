@@ -4,7 +4,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 
-public class ExceptionHelper {
+public final class ExceptionHelper {
+	
+	private ExceptionHelper() {}
 
     public static String getStackTrace(Throwable throwable){
         if(throwable !=null){
