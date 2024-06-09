@@ -1,28 +1,38 @@
 package edu.bu.metcs673_notification_service.config;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
 
 @Configuration
+@EnableRabbit
 public class RabbitMQConfig {
 
-    public static final String EXCHANGE_NAME = "notification_exchange";
+    public static final String FANOUT_EXCHANGE = "fanout-exchange";
+    public static final String QUEUE_NAME = "myQueue";
 
     @Bean
-    public FanoutExchange notificationExchange() {
-        return new FanoutExchange(EXCHANGE_NAME);
+    public Queue queue() {
+        return new Queue(QUEUE_NAME, false);
     }
 
     @Bean
-    public Queue emailQueue() {
-        return new Queue("email_queue");
+    public FanoutExchange exchange() {
+        return new FanoutExchange(FANOUT_EXCHANGE);
     }
-
 
     @Bean
-    public Binding emailBinding(Queue emailQueue, FanoutExchange exchange) {
-        return BindingBuilder.bind(emailQueue).to(exchange);
+    public Binding binding(Queue queue, FanoutExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange);
     }
 
+    @Bean
+    public Jackson2JsonMessageConverter messageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 }

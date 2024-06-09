@@ -10,15 +10,25 @@ import java.util.List;
 public class NotificationSubject {
 
     private List<NotificationObserver> observers = new ArrayList<>();
+    private String message;
 
-    @Autowired
-    public NotificationSubject(List<NotificationObserver> observers) {
-        this.observers = observers;
+    public String getMessage() {
+        return message;
     }
 
-    public void notifyObservers(String message) {
+    public void setMessage(String message) {
+        this.message = message;
+        notifyObservers();
+    }
+
+
+    public void register(NotificationObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers() {
         for(NotificationObserver observer : observers) {
-            observer.update(message);
+            observer.update();
         }
     }
 }
