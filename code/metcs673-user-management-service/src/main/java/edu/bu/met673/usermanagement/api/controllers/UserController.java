@@ -76,7 +76,7 @@ public class UserController {
     public ResponseEntity<PageData<UserDto>> getUserProfiles(
             @Parameter(description = "Filter criteria for profiles") @RequestParam(name = "filter", required = false) String filter,
             @RequestParam(defaultValue = "0", name = "page") int page,
-            @RequestParam(defaultValue = "3", name = "size") int size,
+            @RequestParam(defaultValue = "100", name = "size") int size,
             @RequestParam(defaultValue = "id,desc", name = "sort") String[] sort) {
         return ResponseEntity.ok().body(this.userService.getAllUserProfiles(filter, PageRequestUtils.getPageRequest(page, size, sort)));
     }

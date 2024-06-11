@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.bu.met673.usermanagement.config;
 
 import java.util.List;

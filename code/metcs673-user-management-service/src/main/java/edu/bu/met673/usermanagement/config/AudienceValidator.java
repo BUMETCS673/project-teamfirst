@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.bu.met673.usermanagement.config;
 
 import org.springframework.security.oauth2.core.OAuth2Error;
