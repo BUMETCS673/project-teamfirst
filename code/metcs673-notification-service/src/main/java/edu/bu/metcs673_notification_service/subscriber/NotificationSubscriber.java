@@ -9,5 +9,10 @@ public class NotificationSubscriber {
     @RabbitListener(queues = "email_queue")
     public void receiveEmailNotification(String message) {
         System.out.println("Received Email Notification: " + message);
+
     }
+
+
+
+
 }
