@@ -3,8 +3,15 @@ package edu.bu.metcs673_notification_service.service;
 public class EmailMessage {
     private String to;
     private String subject;
-    private String message;
+    private String body;
     private String name;
+
+    public EmailMessage(String to, String subject, String body, String name) {
+        this.to = to;
+        this.subject = subject;
+        this.body = body;
+        this.name = name;
+    }
 
     // Getters and Setters
     public String getTo() {
@@ -23,12 +30,12 @@ public class EmailMessage {
         this.subject = subject;
     }
 
-    public String getMessage() {
-        return message;
+    public String getBody() {
+        return body;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getName() {
@@ -37,6 +44,15 @@ public class EmailMessage {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String toString() {
+        return "EmailMessage{" +
+                "to='" + to + '\'' +
+                ", subject='" + subject + '\'' +
+                ", body='" + body + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
 

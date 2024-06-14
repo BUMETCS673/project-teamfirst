@@ -18,49 +18,65 @@ import edu.bu.met673.usermanagement.api.model.UserDto;
 import edu.bu.met673.usermanagement.api.model.UserGroupDto;
 import edu.bu.met673.usermanagement.service.UserGroupService;
 import io.micrometer.observation.annotation.Observed;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @Observed
 @RequestMapping("v1/groups")
 @CrossOrigin(origins = "*")
-@Tag(name = "Group Management", description = "APIs for managing group memberships[In progress...]")
+@Tag(name = "Group Management", description = "APIs for managing group memberships")
 public class GroupController {
-	
-	private static final String VIEW_PROFILE = "hasAuthority('read:view_profile')";
-	
-	private UserGroupService userGroupService;
-	
-	public GroupController(@Autowired UserGroupService userGroupService) {
-		this.userGroupService = userGroupService;
-	}
-	
-	@PostMapping("/{groupId}/members")
-	public ResponseEntity<UserDto> addusersToGroup(@PathVariable(name="groupId") String groupId, 
-			@RequestBody List<String> userIds){
-		return ResponseEntity.ok().body(null);
-	}
-	
-	@PostMapping("/{groupId}/members/{userId}")
-	public ResponseEntity<UserGroupDto> addUsetToGroup(@PathVariable(name="groupId") String groupId, 
-			@PathVariable(name="userId") String userId){
-		return ResponseEntity.ok().body(null);
-	}
+    
+    private UserGroupService userGroupService;
+    
+    public GroupController(@Autowired UserGroupService userGroupService) {
+        this.userGroupService = userGroupService;
+    }
+    
+    @Operation(summary = "Add users to a group", description = "Endpoint to add multiple users to a group.")
+    @PostMapping("/{groupId}/members")
+    public ResponseEntity<UserDto> addUsersToGroup(
+            @PathVariable(name="groupId") String groupId, 
+            @RequestBody List<String> userIds) {
+        // Implementation
+        return ResponseEntity.ok().body(null);
+    }
+    
+    @Operation(summary = "Add a user to a group", description = "Endpoint to add a single user to a group.")
+    @PostMapping("/{groupId}/members/{userId}")
+    public ResponseEntity<UserGroupDto> addUserToGroup(
+            @PathVariable(name="groupId") String groupId, 
+            @PathVariable(name="userId") String userId) {
+        // Implementation
+        return ResponseEntity.ok().body(null);
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<GroupDto> getGroupById(@PathVariable(name="id") String groupId){
-		return ResponseEntity.ok().body(null);
-	}
-	
-	@GetMapping("/")
-	public ResponseEntity<List<GroupDto>> getAllGroups(@RequestParam(name="filter") String filter){
-		return ResponseEntity.ok().body(null);
-	}
+    @Operation(summary = "Get group by ID", description = "Endpoint to retrieve a group by its ID.")
+    @GetMapping("/{id}")
+    public ResponseEntity<GroupDto> getGroupById(
+            @Parameter(description = "ID of the group to be obtained") @PathVariable(name="id") String groupId) {
+        // Implementation
+        return ResponseEntity.ok().body(null);
+    }
+    
+    @Operation(summary = "Get all groups", description = "Endpoint to retrieve all groups with optional filtering.")
+    @GetMapping("/")
+    public ResponseEntity<List<GroupDto>> getAllGroups(
+            @Parameter(description = "Filter criteria") @RequestParam(name="filter") String filter,
+            @RequestParam(defaultValue = "0", name = "page") int page,
+            @RequestParam(defaultValue = "100", name = "size") int size,
+            @RequestParam(defaultValue = "id,desc", name = "sort") String[] sort) {
+        // Implementation
+        return ResponseEntity.ok().body(null);
+    }
 
-	
-	@PostMapping("/")
-	public ResponseEntity<GroupDto> createUserGroup(@RequestBody GroupDto groupDto) {
-		return ResponseEntity.ok().body(null);
-	}
-
+    @Operation(summary = "Create a user group", description = "Endpoint to create a new user group.")
+    @PostMapping("/")
+    public ResponseEntity<GroupDto> createUserGroup(
+            @RequestBody GroupDto groupDto) {
+        // Implementation
+        return ResponseEntity.ok().body(null);
+    }
 }

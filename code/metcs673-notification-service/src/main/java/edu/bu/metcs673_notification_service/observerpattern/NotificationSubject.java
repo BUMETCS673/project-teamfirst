@@ -1,6 +1,5 @@
 package edu.bu.metcs673_notification_service.observerpattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,25 +9,18 @@ import java.util.List;
 public class NotificationSubject {
 
     private List<NotificationObserver> observers = new ArrayList<>();
-    private String message;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-        notifyObservers();
-    }
-
 
     public void register(NotificationObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyObservers() {
+    public void unregister(NotificationObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(String message) {
         for(NotificationObserver observer : observers) {
-            observer.update();
+            observer.update(message);
         }
     }
 }
