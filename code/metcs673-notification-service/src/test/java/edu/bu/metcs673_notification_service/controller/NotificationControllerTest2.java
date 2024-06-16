@@ -1,6 +1,7 @@
 package edu.bu.metcs673_notification_service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.bu.metcs673_notification_service.entity.NotificationEntity;
 import edu.bu.metcs673_notification_service.service.EmailMessage;
 import edu.bu.metcs673_notification_service.observerpattern.NotificationStatusService;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,9 +19,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class NotificationControllerTest {
+public class NotificationControllerTest2 {
 
     //set uo simulate http requests
     private MockMvc mockMvc;
@@ -48,7 +50,7 @@ public class NotificationControllerTest {
     }
 
     @Test
-    public void testSendEmailMessage() throws Exception {
+    public void testUpdateEmailMessage() throws Exception {
         //create sample
         EmailMessage emailMessage = new EmailMessage();
         emailMessage.setTo("test@example.com");
@@ -63,33 +65,19 @@ public class NotificationControllerTest {
                 thenReturn("{\"to\":\"test@example.com\",\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"name\":\"Test Name\"}");
         doNothing().when(customRabbitTemplate).
                 convertAndSend(anyString(), anyString(), anyString());
+        NotificationEntity notificationEntity = new NotificationEntity();
+        notificationEntity.setMessageId("12345");
+        when(notificationStatusService.getNotificationById(anyString()))
+                .thenReturn(notificationEntity);
 
-        //Tell Mocktio do nothing when covertAnd Send is called on customRabbitTemplate with any three argument
-        when(notificationStatusService.generateEmailContent(anyString(), anyString(), anyString(), anyMap())).
-                thenReturn("Test Email Content");
-        doNothing().when(notificationStatusService).
-                saveNotification(any(EmailMessage.class), anyString(), anyString());
-        //simulate post request to send-email
-
-        mockMvc.perform(post("/v1/notifications/send-email")
+        // Simulate a PUT request to update-email
+        mockMvc.perform(put("/v1/notifications/update-email/12345")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"to\":\"test@example.com\",\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"name\":\"Test Name\"}"))
-                //verify test result
+                        .content("{\"to\":\"test@example.com\",\"subject\":\"Updated Subject\",\"body\":\"Updated Body\",\"name\":\"Updated Name\"}"))
+                // Verify that the response status is OK (200)
                 .andExpect(status().isOk());
+
     }
-
-    @Test
-    public void testGetNotificationStatus() throws Exception {
-        when(notificationStatusService.getStatusById(anyString())).thenReturn("sent");
-
-        mockMvc.perform(get("/v1/notifications/status/12345"))
-                .andExpect(status().isOk());
-    }
-
-
-
-
-
 
 
 }

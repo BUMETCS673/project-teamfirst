@@ -9,7 +9,7 @@ public class EmailMessage {
     private String body;
     private String name;
 
-    public EmailMessage(String to, String subject, String body, String name) {
+    public EmailMessage() {
         this.messageId = UUID.randomUUID().toString(); //Generate a unique messageId
         this.to = to;
         this.subject = subject;
