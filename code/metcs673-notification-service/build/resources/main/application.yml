@@ -1,0 +1,57 @@
+okta:
+    oauth2:
+        audience: http://localhost:8081
+        issuer: https://dev-v4utikpr1mrs4k05.us.auth0.com/
+server:
+    port: 8081
+
+spring:
+    application:
+        name: metcs673-notification-service
+    mail:
+        host: smtp.gmail.com
+        password: $1z2x3c4v5bCS673
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+        username: $team1metcs673@gmail.com
+    rabbitmq:
+        host: localhost
+        password: guest
+        port: 5672
+        username: guest
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    # Replace with the domain of your Auth0 tenant.
+                    # Note the trailing slash is important!
+                    issuer-uri: https://dev-v4utikpr1mrs4k05.us.auth0.com/
+        datasource:
+            url: ${DB_URL:jdbc:postgresql://metcs673-15053.7tt.aws-us-east-1.cockroachlabs.cloud:26257/metcs673_ns_db}
+            username: ${DB_USERNAME:metcs673}
+            password: ${DB_PASSWROD:fVMu9bHKxfADcW_be4OUZQ}
+
+        jpa:
+            show-sql: true
+            hibernate:
+                ddl-auto: validate
+            properties:
+                hibernate:
+                    dialect: org.hibernate.dialect.PostgreSQLDialect
+                naming:
+                    physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+    logging:
+        pattern:
+            level: "%5p [%X{traceId:-},%X{spanId:-}]"
+
+    management:
+        tracing:
+            sampling:
+                probability: 1.0
