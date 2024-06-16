@@ -1,12 +1,16 @@
 package edu.bu.metcs673_notification_service.service;
 
+import java.util.UUID;
+
 public class EmailMessage {
+    private String messageId;
     private String to;
     private String subject;
     private String body;
     private String name;
 
-    public EmailMessage(String to, String subject, String body, String name) {
+    public EmailMessage() {
+        this.messageId = UUID.randomUUID().toString(); //Generate a unique messageId
         this.to = to;
         this.subject = subject;
         this.body = body;
@@ -14,6 +18,14 @@ public class EmailMessage {
     }
 
     // Getters and Setters
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
     public String getTo() {
         return to;
     }
@@ -46,9 +58,11 @@ public class EmailMessage {
         this.name = name;
     }
 
+    @Override
     public String toString() {
         return "EmailMessage{" +
-                "to='" + to + '\'' +
+                "messageId='" + messageId + '\'' +
+                ", to='" + to + '\'' +
                 ", subject='" + subject + '\'' +
                 ", body='" + body + '\'' +
                 ", name='" + name + '\'' +

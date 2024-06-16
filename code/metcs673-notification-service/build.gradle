@@ -2,6 +2,9 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id 'jacoco'
+	id 'org.sonarqube' version '4.0.0.2929'
+	id 'com.avast.gradle.docker-compose' version '0.14.3'
 }
 
 group = 'edu.bu'
@@ -15,18 +18,56 @@ repositories {
 	mavenCentral()
 }
 
+sonarqube {
+	properties {
+		property 'sonar.host.url', 'http://localhost:9000'
+		property 'sonar.login', 'admin'
+		property 'sonar.password', 'admin'
+	}
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	implementation 'org.springframework.security:spring-security-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations'
+	implementation 'com.fasterxml.jackson.core:jackson-core'
+	implementation 'javax.mail:javax.mail-api:1.6.2'
+	implementation 'com.sun.mail:javax.mail:1.6.2'
+
+	runtimeOnly 'org.postgresql:postgresql'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'io.cucumber:cucumber-java:6.8.1'
+	testImplementation 'io.cucumber:cucumber-junit:6.8.1'
 }
 
-tasks.named('test') {
+
+test{
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
+
+jacocoTestReport{
+	dependsOn test
+	reports{
+		xml.required.set(true)
+	}
+
+}
+
+jacoco{
+	toolVersion = "0.8.7"
+}
+

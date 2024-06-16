@@ -18,9 +18,9 @@ public class NotificationSubject {
         observers.remove(observer);
     }
 
-    public void notifyObservers(String message) {
-        for(NotificationObserver observer : observers) {
-            observer.update(message);
+    public void notifyObservers(String messageId, String status, String emailContent) {
+        for (NotificationObserver observer : observers) {
+            observer.update(messageId, status, emailContent);
         }
     }
 }
