@@ -1,6 +1,7 @@
 package edu.bu.met673.usermanagement.service.impl;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -104,15 +105,15 @@ public class UsersServiceImpl implements UserService {
 			String  userIdentityProviderId = this.getIdentityProviderId(
 					auth0Client.getUserProfile(TokenUtils.getToken()));
 			
-			User user = this.userRepository.findByIdentityProviderId(userIdentityProviderId);
-			if(Objects.isNull(user)) {
+			Optional<User> user = this.userRepository.findByIdentityProviderId(userIdentityProviderId);
+			if(user.isEmpty()) {
 				log.error("{}", Errors.INVALID_USER_ACCOUNT);
 				throw new InvalidUserAccountException(Errors.INVALID_USER_ACCOUNT);
 			}
 			
-			UserDto userDto = this.mapper.toDto(user);
+			UserDto userDto = this.mapper.toDto(user.get());
 			userDto.setPermissioins(TokenUtils.getClaims());
-			return this.mapper.toDto(user);
+			return this.mapper.toDto(user.get());
 		
 		}catch(InvalidUserAccountException ex) {
 			throw ex;
@@ -126,13 +127,13 @@ public class UsersServiceImpl implements UserService {
 	@Override
 	public UserDto getUserProfile(Long userId) throws ServiceException, ResourceNotFoundException {
 		try {
-			User user = this.userRepository.findById(userId).get();
-			if(Objects.isNull(user)) {
+			Optional<User> user = this.userRepository.findById(userId);
+			if(user.isEmpty()) {
 				log.error("{}", Errors.RESOURCE_NOT_FOUND);
 				throw new ResourceNotFoundException(Errors.RESOURCE_NOT_FOUND);
 			}
 			
-			return this.mapper.toDto(user);
+			return this.mapper.toDto(user.get());
 		
 		}catch(ResourceNotFoundException ex) {
 			throw ex;
@@ -163,19 +164,20 @@ public class UsersServiceImpl implements UserService {
 			String  userIdentityProviderId = this.getIdentityProviderId(
 					auth0Client.getUserProfile(TokenUtils.getToken()));
 			
-			User user = this.userRepository.findByIdentityProviderId(userIdentityProviderId);
-			if(Objects.isNull(user)) user = this.userRepository.findById(userId).get(); 
+			Optional<User> user = this.userRepository.findByIdentityProviderId(userIdentityProviderId);
+			if(user.isEmpty()) user = this.userRepository.findById(userId); 
 			
 			
-			if(Objects.isNull(user)) {
+			if(user.isEmpty()) {
 				log.error("{}", Errors.INVALID_USER_ACCOUNT);
 				throw new InvalidUserAccountException(Errors.INVALID_USER_ACCOUNT);
 			}
 			
 			User userToUpdate = mapper.toEntity(userDto);
-			userToUpdate.setId(user.getId());
-			userToUpdate.setCreatedAt(user.getCreatedAt());
-			userToUpdate.setUpdatedAt(user.getUpdatedAt());
+			User existinguser = user.get();
+			userToUpdate.setId(existinguser.getId());
+			userToUpdate.setCreatedAt(existinguser.getCreatedAt());
+			userToUpdate.setUpdatedAt(existinguser.getUpdatedAt());
 	
 			return this.mapper.toDto(userRepository.save(userToUpdate));
 		

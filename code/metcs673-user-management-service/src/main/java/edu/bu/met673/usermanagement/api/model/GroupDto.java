@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class GroupDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private Long groupId;
 	private String name;
 	private String description;
 	private String createdBy;

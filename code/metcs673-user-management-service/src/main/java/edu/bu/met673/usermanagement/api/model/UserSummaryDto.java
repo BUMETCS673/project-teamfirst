@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class UserSummaryDto implements Serializable {
   private static final long serialVersionUID = 1L;
   
-  private Integer id;
+  private Long id;
   private String identityProviderId;
   private String username;
   private String firstName;

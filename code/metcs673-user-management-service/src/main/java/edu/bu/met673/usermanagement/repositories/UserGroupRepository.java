@@ -10,17 +10,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.bu.met673.usermanagement.entities.Group;
+import edu.bu.met673.usermanagement.entities.UserGroup;
 
 /**
  * 
  */
 @Transactional
-public interface GroupRepository extends JpaRepository<Group, Long>{
+public interface UserGroupRepository extends JpaRepository<UserGroup, Long>{
 	
-	List<Group> findByNameContaining(String filter);
-	
-	@Query("SELECT g FROM Group g WHERE lower(g.name) LIKE lower(concat('%', :filter, '%'))")
-	List<Group> search(@Param("filter") String filter);
+	// Alternatively, using JPQL if you need a more complex query
+    @Query("SELECT ug FROM UserGroup ug WHERE ug.group.id = :groupId")
+    List<UserGroup> findUserGroupsByGroupId(@Param("groupId") Long groupId);
 
 }
