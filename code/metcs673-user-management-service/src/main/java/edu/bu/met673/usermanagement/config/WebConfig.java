@@ -1,31 +1,24 @@
 package edu.bu.met673.usermanagement.config;
 
-import java.util.List;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 /**
  * 
  */
 @Configuration
-public class WebConfig {
-	
-	@Bean
-    @Profile("cors")
-    CorsFilter corsConfigurationSource() {
-        var configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
-        var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+public class WebConfig implements WebMvcConfigurer {
 
-        return  new CorsFilter(source);
-    }
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
 
-
+    registry.addMapping("/**")
+      .allowedOrigins("*")
+      .allowedMethods("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS")
+      .allowedHeaders("*")
+      .exposedHeaders("*")
+      .maxAge(3600);
+  }
 }

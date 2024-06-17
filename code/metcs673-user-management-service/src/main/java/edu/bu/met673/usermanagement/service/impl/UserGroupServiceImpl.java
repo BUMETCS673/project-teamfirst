@@ -5,6 +5,7 @@ package edu.bu.met673.usermanagement.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -97,12 +98,18 @@ public class UserGroupServiceImpl implements UserGroupService {
 
 			User user = userRepository.findById(userId)
 					.orElseThrow(() -> new ResourceNotFoundException(Errors.INVALID_USER_ACCOUNT));
+			
+			Optional<UserGroup> existingUserGroup = userGroupRepository.findByGroupIdAndUserId(groupId, userId);
+			if(existingUserGroup.isEmpty()) {
 
-			UserGroup userGroup = new UserGroup();
-			userGroup.setGroup(group);
-			userGroup.setUser(user);
-			UserGroup savedUserGroup = userGroupRepository.save(userGroup);
-			return UserGroupMapper.toUserGroupDto(savedUserGroup);
+				UserGroup userGroup = new UserGroup();
+				userGroup.setGroup(group);
+				userGroup.setUser(user);
+				UserGroup savedUserGroup = userGroupRepository.save(userGroup);
+				return UserGroupMapper.toUserGroupDto(savedUserGroup);
+			}
+			
+			return UserGroupMapper.toUserGroupDto(existingUserGroup.get());
 
 		} catch (ResourceNotFoundException ex) {
 			throw ex;
@@ -126,7 +133,9 @@ public class UserGroupServiceImpl implements UserGroupService {
 				throw new ResourceNotFoundException(Errors.INVALID_USER_ACCOUNT);
 			}
 
-			List<UserGroup> userGroups = users.stream().map(user -> {
+			List<UserGroup> userGroups = users.stream().filter(user->{
+				return userGroupRepository.findByGroupIdAndUserId(groupId, user.getId()).isEmpty();
+			}).map(user -> {
 				UserGroup userGroup = new UserGroup();
 				userGroup.setGroup(group);
 				userGroup.setUser(user);
@@ -148,7 +157,13 @@ public class UserGroupServiceImpl implements UserGroupService {
 		try {
 			Group group = groupRepository.findById(groupId)
 					.orElseThrow(() -> new ResourceNotFoundException(Errors.RESOURCE_NOT_FOUND));
-			return UserGroupMapper.toGroupDto(group);
+			GroupDto groupDto = UserGroupMapper.toGroupDto(group);
+			if(Objects.nonNull(group.getUserGroups())) {
+				groupDto.setMembers(group.getUserGroups().stream().map(userGroup-> UserMapper.toUserSummaryDto(userGroup.getUser())).toList());
+			}
+			
+			return groupDto;
+			 
 		} catch (ResourceNotFoundException ex) {
 			throw ex;
 		} catch (Exception ex) {

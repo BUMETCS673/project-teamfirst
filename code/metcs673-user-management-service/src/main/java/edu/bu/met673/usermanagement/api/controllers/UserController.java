@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.bu.met673.usermanagement.api.model.PageData;
 import edu.bu.met673.usermanagement.api.model.UserDto;
 import edu.bu.met673.usermanagement.api.model.UserRegistrationRequest;
+import edu.bu.met673.usermanagement.config.Permissions;
 import edu.bu.met673.usermanagement.service.UserService;
 import edu.bu.met673.usermanagement.utils.PageRequestUtils;
 import io.micrometer.observation.annotation.Observed;
@@ -34,8 +35,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "User Management", description = "APIs for managing user profiles")
 public class UserController {
 
-    private static final String VIEW_PROFILE = "hasAuthority('read:view_profile')";
-
     private final UserService userService;
 
     public UserController(@Autowired UserService userService) {
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    @PreAuthorize(VIEW_PROFILE)
+    @PreAuthorize(Permissions.VIEW_PROFILE)
     @Operation(summary = "Get current user profile", description = "Fetches the profile information of the currently authenticated user.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Profile retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
@@ -54,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize(VIEW_PROFILE)
+    @PreAuthorize(Permissions.VIEW_PROFILE)
     @Operation(summary = "Get user profile by ID", description = "Fetches the profile information of a user by their ID.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Profile retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
@@ -67,7 +66,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    @PreAuthorize(VIEW_PROFILE)
+    @PreAuthorize(Permissions.VIEW_PROFILE)
     @Operation(summary = "Get all user profiles", description = "Fetches profiles of users with optional filters and pagination.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Profiles retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PageData.class))),
@@ -98,7 +97,7 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "User updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDto.class))),
         @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content)
     })
-    public ResponseEntity<UserDto> updaateMyProfile(
+    public ResponseEntity<UserDto> updateMyProfile(
     		@Parameter(description = "User ID") @PathVariable(name = "id") Long userId,
             @Parameter(description = "Details of the user to be updated") @RequestBody UserRegistrationRequest registrationRequest) {
         return ResponseEntity.ok().body(this.userService.updateUserProfile(userId, registrationRequest));

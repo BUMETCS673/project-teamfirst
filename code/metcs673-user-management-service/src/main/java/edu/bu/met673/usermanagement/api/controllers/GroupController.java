@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.bu.met673.usermanagement.api.model.GroupDto;
 import edu.bu.met673.usermanagement.api.model.UserGroupDto;
 import edu.bu.met673.usermanagement.api.model.UserSummaryDto;
+import edu.bu.met673.usermanagement.config.Permissions;
 import edu.bu.met673.usermanagement.service.UserGroupService;
 import io.micrometer.observation.annotation.Observed;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,6 +48,7 @@ public class GroupController {
     }
     
     @Operation(summary = "Add a user to a group", description = "Endpoint to add a single user to a group.")
+    @PreAuthorize(Permissions.MANAGE_GROUP_MEMBERS)
     @PostMapping("/{groupId}/members/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserGroupDto> addUserToGroup(@PathVariable(name="groupId") Long groupId, 
@@ -53,6 +57,7 @@ public class GroupController {
     }
 
     @Operation(summary = "Get group by ID", description = "Endpoint to retrieve a group by its ID.")
+    @PreAuthorize(Permissions.VIEW_GROUP)
     @GetMapping("/{id}")
     public ResponseEntity<GroupDto> getGroupById( @Parameter(description = "ID of the group to be obtained") 
     							@PathVariable(name="id") Long groupId) {
@@ -60,6 +65,7 @@ public class GroupController {
     }
     
     @Operation(summary = "Get Members for a given group", description = "Endpoint to retrieve the members for a given group.")
+    @PreAuthorize(Permissions.VIEW_GROUP)
     @GetMapping("/{id}/members")
     public ResponseEntity<List<UserSummaryDto>> getMembersForGivenGroup( @Parameter(description = "ID of the group to be obtained") 
     							@PathVariable(name="id") Long groupId) {
@@ -67,6 +73,7 @@ public class GroupController {
     }
     
     @Operation(summary = "Get all groups", description = "Endpoint to retrieve all groups with optional filtering.")
+    @PreAuthorize(Permissions.VIEW_GROUP)
     @GetMapping("/")
     public ResponseEntity<List<GroupDto>> getAllGroups(
             @Parameter(description = "Filter criteria") @RequestParam(name="filter", defaultValue = "") String filter) {
@@ -74,9 +81,20 @@ public class GroupController {
     }
 
     @Operation(summary = "Create a user group", description = "Endpoint to create a new user group.")
+    @PreAuthorize(Permissions.CREATE_GROUP)
     @PostMapping("/")
     public ResponseEntity<GroupDto> createUserGroup(
             @RequestBody GroupDto groupDto) {
         return ResponseEntity.ok().body(this.userGroupService.createGroup(groupDto));
     }
+    
+    @Operation(summary = "Delete a user group", description = "Endpoint to delete a new user group.")
+    @PreAuthorize(Permissions.MANAGE_DELETE_GROUP)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<GroupDto> createUserGroup(
+    		@Parameter(description = "ID of the group to be obtained") 
+			@PathVariable(name="id") Long groupId) {
+        return ResponseEntity.ok().body(this.userGroupService.deleteGroup(groupId));
+    }
+    
 }
