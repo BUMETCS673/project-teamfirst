@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RabbitMQListener.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">metcs673-notification-service</a> &gt; <a href="index.source.html" class="el_package">edu.bu.metcs673_notification_service.observerpattern</a> &gt; <span class="el_source">RabbitMQListener.java</span></div><h1>RabbitMQListener.java</h1><pre class="source lang-java linenums">package edu.bu.metcs673_notification_service.observerpattern;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.bu.metcs673_notification_service.config.RabbitMQConfig;
+import edu.bu.metcs673_notification_service.service.EmailMessage;
+import edu.bu.metcs673_notification_service.service.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+@Service
+<span class="nc" id="L21">public class RabbitMQListener {</span>
+
+    @Autowired
+    private NotificationSubject notificationSubject;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private EmailService emailService;
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
+    public void receiveMessage(String message) {
+        try {
+<span class="nc" id="L35">            EmailMessage emailMessage = objectMapper.readValue(message, EmailMessage.class);</span>
+
+            // Prepare the template model
+<span class="nc" id="L38">            Map&lt;String, Object&gt; templateModel = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L39">            templateModel.put(&quot;name&quot;, emailMessage.getName());</span>
+<span class="nc" id="L40">            templateModel.put(&quot;message&quot;, emailMessage.getBody());</span>
+
+            // Send the HTML email
+<span class="nc" id="L43">            String emailContent = emailService.sendHtmlMessage(emailMessage.getTo(), emailMessage.getSubject(), &quot;emailTemplate&quot;, templateModel);</span>
+
+            // Update status and notify observers
+<span class="nc" id="L46">            notificationSubject.notifyObservers(emailMessage.getMessageId(), &quot;delivered&quot;, emailContent);</span>
+<span class="nc" id="L47">        } catch (Exception e) {</span>
+<span class="nc" id="L48">            e.printStackTrace();</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

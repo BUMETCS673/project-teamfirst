@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwaggerConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">metcs673-notification-service</a> &gt; <a href="index.source.html" class="el_package">edu.bu.metcs673_notification_service.config</a> &gt; <span class="el_source">SwaggerConfig.java</span></div><h1>SwaggerConfig.java</h1><pre class="source lang-java linenums">package edu.bu.metcs673_notification_service.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+
+@Configuration
+<span class="nc" id="L15">public class SwaggerConfig {</span>
+<span class="nc" id="L16">    String schemeName = &quot;bearerAuth&quot;;</span>
+<span class="nc" id="L17">    String bearerFormat = &quot;JWT&quot;;</span>
+<span class="nc" id="L18">    String scheme = &quot;bearer&quot;;</span>
+    @Bean
+    OpenAPI customOpenAPI() {
+<span class="nc" id="L21">        return new OpenAPI()</span>
+<span class="nc" id="L22">                .addSecurityItem(new SecurityRequirement().addList(schemeName))</span>
+<span class="nc" id="L23">                .components(new Components().addSecuritySchemes(schemeName,</span>
+<span class="nc" id="L24">                        new SecurityScheme().name(schemeName)</span>
+<span class="nc" id="L25">                                .type(SecurityScheme.Type.HTTP)</span>
+<span class="nc" id="L26">                                .bearerFormat(bearerFormat)</span>
+<span class="nc" id="L27">                                .in(SecurityScheme.In.HEADER)</span>
+<span class="nc" id="L28">                                .scheme(scheme)))</span>
+<span class="nc" id="L29">                .info(new Info()</span>
+<span class="nc" id="L30">                        .title(&quot;Notification Service API&quot;)</span>
+<span class="nc" id="L31">                        .description(&quot;&quot;&quot;</span>
+                            The Notification Service API provides sets of endpoint for send notifications to registered users.
+                            With these API, you can send notifications, and track delivery status.
+                            
+                            Security is a critical aspect of this API, which integrates with Auth0 to leverage OAuth 2.0 for authentication and authorization.
+                            All API operations require appropriate user permissions and are protected using JWT tokens issued by Auth0.
+                            This ensures that only authenticated and authorized users can perform operations.
+                            &quot;&quot;&quot;)
+<span class="nc" id="L39">                        .version(&quot;1.0&quot;)</span>
+<span class="nc" id="L40">                        .termsOfService(&quot;#&quot;)</span>
+<span class="nc" id="L41">                        .contact(new Contact()</span>
+<span class="nc" id="L42">                                .name(&quot;Support Team - METCS 673 Team1&quot;)</span>
+<span class="nc" id="L43">                                .email(&quot;lsxcs@bu.edu&quot;)</span>
+<span class="nc" id="L44">                                .url(&quot;#&quot;))</span>
+<span class="nc" id="L45">                        .license(new License()</span>
+<span class="nc" id="L46">                                .name(&quot;Apache 2.0&quot;)</span>
+<span class="nc" id="L47">                                .url(&quot;bu.edu&quot;)));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
