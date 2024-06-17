@@ -4,6 +4,7 @@
 package edu.bu.met673.usermanagement.api.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,4 +24,5 @@ public class GroupDto implements Serializable {
 	private String name;
 	private String description;
 	private String createdBy;
+	private List<UserSummaryDto> members;
 }

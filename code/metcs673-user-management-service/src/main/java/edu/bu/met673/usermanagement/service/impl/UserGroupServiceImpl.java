@@ -148,7 +148,13 @@ public class UserGroupServiceImpl implements UserGroupService {
 		try {
 			Group group = groupRepository.findById(groupId)
 					.orElseThrow(() -> new ResourceNotFoundException(Errors.RESOURCE_NOT_FOUND));
-			return UserGroupMapper.toGroupDto(group);
+			GroupDto groupDto = UserGroupMapper.toGroupDto(group);
+			if(Objects.nonNull(group.getUserGroups())) {
+				groupDto.setMembers(group.getUserGroups().stream().map(userGroup-> UserMapper.toUserSummaryDto(userGroup.getUser())).toList());
+			}
+			
+			return groupDto;
+			 
 		} catch (ResourceNotFoundException ex) {
 			throw ex;
 		} catch (Exception ex) {
