@@ -3,11 +3,14 @@ package edu.bu.metcs673_notification_service.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "notification_entity")
 public class NotificationEntity {
 
     @Id
+    @Column(name = "message_id", nullable = false)
     private String messageId;
 
     @Column(nullable = false)

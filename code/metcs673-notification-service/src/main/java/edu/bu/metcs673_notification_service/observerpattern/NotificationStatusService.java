@@ -65,4 +65,17 @@ public class NotificationStatusService implements NotificationObserver {
         context.setVariables(templateModel);
         return templateEngine.process(templateName, context);
     }
+
+    public NotificationEntity getNotificationById(String messageId) {
+        return notificationRepository.findById(messageId).orElse(null);
+    }
+
+    public void saveNotification(NotificationEntity notificationEntity) {
+        notificationRepository.save(notificationEntity);
+    }
+
+    public void deleteNotification(NotificationEntity notificationEntity) {
+        notificationRepository.delete(notificationEntity);
+    }
+
 }

@@ -29,7 +29,7 @@ public class RabbitMQListener {
     @Autowired
     private EmailService emailService;
 
-    @RabbitListener(queues = "your_queue_name")
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
     public void receiveMessage(String message) {
         try {
             EmailMessage emailMessage = objectMapper.readValue(message, EmailMessage.class);

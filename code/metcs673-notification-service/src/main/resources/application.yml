@@ -24,6 +24,7 @@ spring:
         password: guest
         port: 5672
         username: guest
+        virtual-host: /
     security:
         oauth2:
             resourceserver:
@@ -31,27 +32,28 @@ spring:
                     # Replace with the domain of your Auth0 tenant.
                     # Note the trailing slash is important!
                     issuer-uri: https://dev-v4utikpr1mrs4k05.us.auth0.com/
-        datasource:
-            url: ${DB_URL:jdbc:postgresql://metcs673-15053.7tt.aws-us-east-1.cockroachlabs.cloud:26257/metcs673_ns_db}
-            username: ${DB_USERNAME:metcs673}
-            password: ${DB_PASSWROD:fVMu9bHKxfADcW_be4OUZQ}
+    datasource:
+        url: ${DB_URL:jdbc:postgresql://metcs673-15053.7tt.aws-us-east-1.cockroachlabs.cloud:26257/metcs673_ns_db}
+        username: ${DB_USERNAME:metcs673}
+        password: ${DB_PASSWROD:fVMu9bHKxfADcW_be4OUZQ}
+        driver-class-name: org.postgresql.Driver
 
-        jpa:
-            show-sql: true
+    jpa:
+        show-sql: true
+        hibernate:
+           ddl-auto: validate
+        properties:
             hibernate:
-                ddl-auto: validate
-            properties:
-                hibernate:
-                    dialect: org.hibernate.dialect.PostgreSQLDialect
-                naming:
-                    physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 
-    logging:
-        pattern:
-            level: "%5p [%X{traceId:-},%X{spanId:-}]"
+logging:
+    pattern:
+        level: "%5p [%X{traceId:-},%X{spanId:-}]"
 
-    management:
-        tracing:
-            sampling:
-                probability: 1.0
+management:
+    tracing:
+        sampling:
+            probability: 1.0

@@ -2,6 +2,9 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.6'
 	id 'io.spring.dependency-management' version '1.1.5'
+	id 'jacoco'
+	id 'org.sonarqube' version '4.0.0.2929'
+	id 'com.avast.gradle.docker-compose' version '0.14.3'
 }
 
 group = 'edu.bu'
@@ -15,6 +18,13 @@ repositories {
 	mavenCentral()
 }
 
+sonarqube {
+	properties {
+		property 'sonar.host.url', 'http://localhost:9000'
+		property 'sonar.login', 'admin'
+		property 'sonar.password', 'admin'
+	}
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -30,6 +40,7 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-core'
 	implementation 'javax.mail:javax.mail-api:1.6.2'
 	implementation 'com.sun.mail:javax.mail:1.6.2'
+
 	runtimeOnly 'org.postgresql:postgresql'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -42,6 +53,21 @@ dependencies {
 	testImplementation 'io.cucumber:cucumber-junit:6.8.1'
 }
 
-tasks.named('test') {
+
+test{
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
+
+jacocoTestReport{
+	dependsOn test
+	reports{
+		xml.required.set(true)
+	}
+
+}
+
+jacoco{
+	toolVersion = "0.8.7"
+}
+

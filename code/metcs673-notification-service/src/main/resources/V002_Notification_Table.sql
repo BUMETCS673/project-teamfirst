@@ -13,6 +13,15 @@ CREATE TABLE notification (
     status VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS notification_entity (
+    message_id SERIAL PRIMARY KEY,
+    "to" VARCHAR(255) NOT NULL,
+     subject VARCHAR(255) NOT NULL,
+     body TEXT NOT NULL,
+     name VARCHAR(255) NOT NULL,
+     status VARCHAR(50) NOT NULL
+);
+
 
 
 

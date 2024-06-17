@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.bu.metcs673_notification_service.controller.NotificationControllerTest3" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-16T09:06:20" hostname="Chaozhengs-MacBook-Pro.local" time="1.025">
+  <properties/>
+  <testcase name="testDeleteeEmailMessage()" classname="edu.bu.metcs673_notification_service.controller.NotificationControllerTest3" time="1.025"/>
+  <system-out><![CDATA[02:06:21.135 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+02:06:21.136 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+02:06:21.138 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
