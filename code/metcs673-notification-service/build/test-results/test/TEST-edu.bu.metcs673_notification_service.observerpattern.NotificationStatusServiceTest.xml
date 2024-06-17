@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2024-06-17T00:32:31" hostname="Chaozhengs-MacBook-Pro.local" time="0.926">
+<testsuite name="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-06-17T22:19:00" hostname="Chaozhengs-MacBook-Pro.local" time="0.417">
   <properties/>
-  <testcase name="testGetStatusById_NotFound()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.908"/>
-  <testcase name="testUpdate()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.014">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;Sent&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;Sent&gt; but was: &lt;null&gt;
-	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
-	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
-	at app//edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest.testUpdate(NotificationStatusServiceTest.java:52)
-	at java.base@20.0.2/java.lang.reflect.Method.invoke(Method.java:578)
-	at java.base@20.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base@20.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
-</failure>
-  </testcase>
-  <testcase name="testGetStatusById()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.002"/>
-  <system-out><![CDATA[Notification 12345 status updated to: Sent
-Email Content: Email content
-]]></system-out>
+  <testcase name="testGetStatusById_NotFound()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.395"/>
+  <testcase name="testUpdateStatus()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.011"/>
+  <testcase name="testGetStatusById()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

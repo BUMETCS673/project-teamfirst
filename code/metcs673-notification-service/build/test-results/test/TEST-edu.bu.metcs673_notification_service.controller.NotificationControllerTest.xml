@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.bu.metcs673_notification_service.controller.NotificationControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-06-17T22:18:57" hostname="Chaozhengs-MacBook-Pro.local" time="3.526">
+  <properties/>
+  <testcase name="testGetNotificationStatus()" classname="edu.bu.metcs673_notification_service.controller.NotificationControllerTest" time="3.295"/>
+  <testcase name="testSendEmailMessage()" classname="edu.bu.metcs673_notification_service.controller.NotificationControllerTest" time="0.222"/>
+  <system-out><![CDATA[2024-06-17T15:19:00.319-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2024-06-17T15:19:00.321-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-06-17T15:19:00.331-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2024-06-17T15:19:00.548-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] o.s.mock.web.MockServletContext          : Initializing Spring TestDispatcherServlet ''
+2024-06-17T15:19:00.548-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-06-17T15:19:00.548-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

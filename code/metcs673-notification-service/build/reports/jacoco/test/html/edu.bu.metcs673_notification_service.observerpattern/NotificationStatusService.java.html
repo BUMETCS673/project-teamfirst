@@ -18,27 +18,27 @@ public class NotificationStatusService implements NotificationObserver {
     private TemplateEngine templateEngine;
 
     @Autowired
-<span class="nc" id="L21">    public NotificationStatusService(NotificationRepository notificationRepository, NotificationSubject notificationSubject, TemplateEngine templateEngine) {</span>
-<span class="nc" id="L22">        this.notificationRepository = notificationRepository;</span>
-<span class="nc" id="L23">        this.notificationSubject = notificationSubject;</span>
-<span class="nc" id="L24">        this.templateEngine = templateEngine;</span>
-<span class="nc" id="L25">        this.notificationSubject.register(this); // Register as an observer</span>
-<span class="nc" id="L26">    }</span>
+<span class="fc" id="L21">    public NotificationStatusService(NotificationRepository notificationRepository, NotificationSubject notificationSubject, TemplateEngine templateEngine) {</span>
+<span class="fc" id="L22">        this.notificationRepository = notificationRepository;</span>
+<span class="fc" id="L23">        this.notificationSubject = notificationSubject;</span>
+<span class="fc" id="L24">        this.templateEngine = templateEngine;</span>
+<span class="fc" id="L25">        this.notificationSubject.register(this); // Register as an observer</span>
+<span class="fc" id="L26">    }</span>
 
     public String getStatusById(String messageId) {
-<span class="nc" id="L29">        Optional&lt;NotificationEntity&gt; notification = notificationRepository.findById(messageId);</span>
-<span class="nc" id="L30">        return notification.map(NotificationEntity::getStatus).orElse(&quot;unknown&quot;);</span>
+<span class="fc" id="L29">        Optional&lt;NotificationEntity&gt; notification = notificationRepository.findById(messageId);</span>
+<span class="fc" id="L30">        return notification.map(NotificationEntity::getStatus).orElse(&quot;unknown&quot;);</span>
     }
 
     public void updateStatus(String messageId, String status, String emailContent) {
-<span class="nc" id="L34">        Optional&lt;NotificationEntity&gt; notification = notificationRepository.findById(messageId);</span>
-<span class="nc" id="L35">        notification.ifPresent(n -&gt; {</span>
-<span class="nc" id="L36">            n.setStatus(status);</span>
-<span class="nc" id="L37">            n.setEmailContent(emailContent);</span>
-<span class="nc" id="L38">            notificationRepository.save(n);</span>
-<span class="nc" id="L39">            notificationSubject.notifyObservers(messageId, status, emailContent); // Notify observers</span>
-<span class="nc" id="L40">        });</span>
-<span class="nc" id="L41">    }</span>
+<span class="fc" id="L34">        Optional&lt;NotificationEntity&gt; notification = notificationRepository.findById(messageId);</span>
+<span class="fc" id="L35">        notification.ifPresent(n -&gt; {</span>
+<span class="fc" id="L36">            n.setStatus(status);</span>
+<span class="fc" id="L37">            n.setEmailContent(emailContent);</span>
+<span class="fc" id="L38">            notificationRepository.save(n);</span>
+<span class="fc" id="L39">            notificationSubject.notifyObservers(messageId, status, emailContent); // Notify observers</span>
+<span class="fc" id="L40">        });</span>
+<span class="fc" id="L41">    }</span>
 
     public void saveNotification(EmailMessage emailMessage, String status, String emailContent) {
 <span class="nc" id="L44">        NotificationEntity notification = new NotificationEntity();</span>

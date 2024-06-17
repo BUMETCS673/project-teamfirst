@@ -40,20 +40,20 @@ public class NotificationController {
     @PostMapping(&quot;/send-email&quot;)
     public ResponseEntity&lt;String&gt; sendEmailMessage(@RequestBody EmailMessage emailMessage) {
         try {
-<span class="nc" id="L43">            String message = objectMapper.writeValueAsString(emailMessage);</span>
-<span class="nc" id="L44">            customRabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, &quot;&quot;, message);</span>
+<span class="fc" id="L43">            String message = objectMapper.writeValueAsString(emailMessage);</span>
+<span class="fc" id="L44">            customRabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, &quot;&quot;, message);</span>
 
             // Prepare the template model
-<span class="nc" id="L47">            Map&lt;String, Object&gt; templateModel = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L48">            templateModel.put(&quot;name&quot;, emailMessage.getName());</span>
-<span class="nc" id="L49">            templateModel.put(&quot;message&quot;, emailMessage.getBody());</span>
+<span class="fc" id="L47">            Map&lt;String, Object&gt; templateModel = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L48">            templateModel.put(&quot;name&quot;, emailMessage.getName());</span>
+<span class="fc" id="L49">            templateModel.put(&quot;message&quot;, emailMessage.getBody());</span>
 
             // Generate HTML content for the email
-<span class="nc" id="L52">            String emailContent = notificationStatusService.generateEmailContent(emailMessage.getTo(), emailMessage.getSubject(), &quot;emailTemplate&quot;, templateModel);</span>
+<span class="fc" id="L52">            String emailContent = notificationStatusService.generateEmailContent(emailMessage.getTo(), emailMessage.getSubject(), &quot;emailTemplate&quot;, templateModel);</span>
 
-<span class="nc" id="L54">            notificationStatusService.saveNotification(emailMessage, &quot;sent&quot;, emailContent); // Save notification to database with status &quot;sent&quot;</span>
+<span class="fc" id="L54">            notificationStatusService.saveNotification(emailMessage, &quot;sent&quot;, emailContent); // Save notification to database with status &quot;sent&quot;</span>
 
-<span class="nc" id="L56">            return ResponseEntity.ok(&quot;Email sent to RabbitMQ&quot;);</span>
+<span class="fc" id="L56">            return ResponseEntity.ok(&quot;Email sent to RabbitMQ&quot;);</span>
 <span class="nc" id="L57">        } catch (JsonProcessingException e) {</span>
 <span class="nc" id="L58">            return ResponseEntity.status(500).body(&quot;Failed to send email: &quot; + e.getMessage());</span>
         }
@@ -63,8 +63,8 @@ public class NotificationController {
     @GetMapping(&quot;/status/{messageId}&quot;)
     public ResponseEntity&lt;String&gt; getNotificationStatus(@Parameter(description = &quot;ID of the message to get the status for&quot;) @PathVariable String messageId) {
         try {
-<span class="nc" id="L66">            String status = notificationStatusService.getStatusById(messageId);</span>
-<span class="nc" id="L67">            return ResponseEntity.ok(&quot;Notification status: &quot; + status);</span>
+<span class="fc" id="L66">            String status = notificationStatusService.getStatusById(messageId);</span>
+<span class="fc" id="L67">            return ResponseEntity.ok(&quot;Notification status: &quot; + status);</span>
 <span class="nc" id="L68">        } catch (Exception e) {</span>
 <span class="nc" id="L69">            return ResponseEntity.status(500).body(&quot;Failed to get status: &quot; + e.getMessage());</span>
         }
@@ -104,15 +104,15 @@ public class NotificationController {
     public ResponseEntity&lt;String&gt; deleteEmailMessage(@Parameter(description = &quot;ID of the message to delete&quot;) @PathVariable String messageId) {
         try {
             // Check if the notification exists
-<span class="nc" id="L107">            NotificationEntity existingNotification = notificationStatusService.getNotificationById(messageId);</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">            if (existingNotification == null) {</span>
+<span class="fc" id="L107">            NotificationEntity existingNotification = notificationStatusService.getNotificationById(messageId);</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">            if (existingNotification == null) {</span>
 <span class="nc" id="L109">                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Notification not found&quot;);</span>
             }
 
             // Delete the notification
-<span class="nc" id="L113">            notificationStatusService.deleteNotification(existingNotification);</span>
+<span class="fc" id="L113">            notificationStatusService.deleteNotification(existingNotification);</span>
 
-<span class="nc" id="L115">            return ResponseEntity.ok(&quot;Email notification deleted&quot;);</span>
+<span class="fc" id="L115">            return ResponseEntity.ok(&quot;Email notification deleted&quot;);</span>
 <span class="nc" id="L116">        } catch (Exception e) {</span>
 <span class="nc" id="L117">            return ResponseEntity.status(404).body(&quot;Failed to delete email: &quot; + e.getMessage());</span>
         }

@@ -36,19 +36,22 @@ class NotificationStatusServiceTest {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdateStatus() {
         // Arrange
         String messageId = "12345";
         String status = "Sent";
         String emailContent = "Email content";
+
+        // Mock behavior for notificationRepository
         NotificationEntity notificationEntity = new NotificationEntity();
         notificationEntity.setMessageId(messageId);
         when(notificationRepository.findById(messageId)).thenReturn(Optional.of(notificationEntity));
 
         // Act
-        notificationStatusService.update(messageId, status, emailContent);
+        notificationStatusService.updateStatus(messageId, status, emailContent);
 
         // Assert
+        verify(notificationRepository, times(1)).findById(messageId);
         assertEquals(status, notificationEntity.getStatus());
         assertEquals(emailContent, notificationEntity.getEmailContent());
         verify(notificationRepository, times(1)).save(notificationEntity);

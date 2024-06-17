@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 @Service
-<span class="nc" id="L21">public class RabbitMQListener {</span>
+<span class="fc" id="L21">public class RabbitMQListener {</span>
 
     @Autowired
     private NotificationSubject notificationSubject;
@@ -32,21 +32,21 @@ import java.util.Map;
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
     public void receiveMessage(String message) {
         try {
-<span class="nc" id="L35">            EmailMessage emailMessage = objectMapper.readValue(message, EmailMessage.class);</span>
+<span class="fc" id="L35">            EmailMessage emailMessage = objectMapper.readValue(message, EmailMessage.class);</span>
 
             // Prepare the template model
-<span class="nc" id="L38">            Map&lt;String, Object&gt; templateModel = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L39">            templateModel.put(&quot;name&quot;, emailMessage.getName());</span>
-<span class="nc" id="L40">            templateModel.put(&quot;message&quot;, emailMessage.getBody());</span>
+<span class="fc" id="L38">            Map&lt;String, Object&gt; templateModel = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L39">            templateModel.put(&quot;name&quot;, emailMessage.getName());</span>
+<span class="fc" id="L40">            templateModel.put(&quot;message&quot;, emailMessage.getBody());</span>
 
             // Send the HTML email
-<span class="nc" id="L43">            String emailContent = emailService.sendHtmlMessage(emailMessage.getTo(), emailMessage.getSubject(), &quot;emailTemplate&quot;, templateModel);</span>
+<span class="fc" id="L43">            String emailContent = emailService.sendHtmlMessage(emailMessage.getTo(), emailMessage.getSubject(), &quot;emailTemplate&quot;, templateModel);</span>
 
             // Update status and notify observers
-<span class="nc" id="L46">            notificationSubject.notifyObservers(emailMessage.getMessageId(), &quot;delivered&quot;, emailContent);</span>
-<span class="nc" id="L47">        } catch (Exception e) {</span>
-<span class="nc" id="L48">            e.printStackTrace();</span>
-<span class="nc" id="L49">        }</span>
-<span class="nc" id="L50">    }</span>
+<span class="fc" id="L46">            notificationSubject.notifyObservers(emailMessage.getMessageId(), &quot;delivered&quot;, emailContent);</span>
+<span class="fc" id="L47">        } catch (Exception e) {</span>
+<span class="fc" id="L48">            e.printStackTrace();</span>
+<span class="fc" id="L49">        }</span>
+<span class="fc" id="L50">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

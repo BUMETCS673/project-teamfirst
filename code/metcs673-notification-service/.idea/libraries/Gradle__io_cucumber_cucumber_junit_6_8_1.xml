@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.cucumber:cucumber-junit:6.8.1" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.cucumber" artifactId="cucumber-junit" version="6.8.1" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.cucumber/cucumber-junit/6.8.1/d3d8de05005d4d35d9497f3779329712e49094d1/cucumber-junit-6.8.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.cucumber/cucumber-junit/6.8.1/e873f0e267033dc786647d66a59ca2f2937753f9/cucumber-junit-6.8.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

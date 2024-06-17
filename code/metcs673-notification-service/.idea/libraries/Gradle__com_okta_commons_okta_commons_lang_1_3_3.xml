@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.okta.commons:okta-commons-lang:1.3.3" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.okta.commons" artifactId="okta-commons-lang" version="1.3.3" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.okta.commons/okta-commons-lang/1.3.3/9fa7ed346603ddeb5d47abce1f39369f480f07cb/okta-commons-lang-1.3.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.okta.commons/okta-commons-lang/1.3.3/8579fe55fea90dbc8a20c6eeb43c116808fee4b7/okta-commons-lang-1.3.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
