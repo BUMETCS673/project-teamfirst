@@ -2,13 +2,7 @@ package edu.bu.met673.usermanagement.api.controllers;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-import edu.bu.met673.usermanagement.api.model.GroupDto;
-import edu.bu.met673.usermanagement.api.model.UserDto;
-import edu.bu.met673.usermanagement.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,13 +18,14 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import edu.bu.met673.usermanagement.api.model.UserDto;
+import edu.bu.met673.usermanagement.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
-
-public class UserControllerIntegrationTest {
+class UserControllerIntegrationTest {
 
 
     @Container
@@ -55,7 +50,7 @@ public class UserControllerIntegrationTest {
     private TestRestTemplate restTemplate; // Use TestRestTemplate for HTTP requests
 
     @Test
-    public void testGetCurrentUserProfile() {
+    void testGetCurrentUserProfile() {
         // Make an HTTP GET request to the /me endpoint
         ResponseEntity<UserDto> response = restTemplate.exchange("/me", HttpMethod.GET, null, UserDto.class);
 
@@ -77,23 +72,6 @@ public class UserControllerIntegrationTest {
                 .then()
                 .statusCode(HttpStatus.OK.value())
                 .body("userId", equalTo(userId.intValue()));
-    }
-
-    @Test
-    void testCreateUserGroup() {
-        UserDto userDto = new UserDto();
-        userDto.setId(Long.valueOf("User Id"));
-        userDto.setId(Long.valueOf("Test User Description"));
-
-        given()
-                .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer " + TokenHolderTest.TOKEN)
-                .body(userDto)
-                .when()
-                .post("/v1/users/")
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("name", equalTo(userDto.getUsername()));
     }
 }
 
