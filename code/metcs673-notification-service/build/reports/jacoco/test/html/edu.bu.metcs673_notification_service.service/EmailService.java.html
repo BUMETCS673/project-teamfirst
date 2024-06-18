@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmailService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">metcs673-notification-service</a> &gt; <a href="index.source.html" class="el_package">edu.bu.metcs673_notification_service.service</a> &gt; <span class="el_source">EmailService.java</span></div><h1>EmailService.java</h1><pre class="source lang-java linenums">package edu.bu.metcs673_notification_service.service;
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.messaging.MessagingException;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+
+import java.util.Map;
+
+@Service
+<span class="nc" id="L14">public class EmailService {</span>
+
+    @Autowired
+    private JavaMailSender emailSender;
+
+    @Autowired
+    private TemplateEngine templateEngine;
+
+    public String sendHtmlMessage(String to, String subject, String templateName, Map&lt;String, Object&gt; templateModel) throws MessagingException, jakarta.mail.MessagingException {
+<span class="nc" id="L23">        Context context = new Context();</span>
+<span class="nc" id="L24">        context.setVariables(templateModel);</span>
+<span class="nc" id="L25">        String htmlBody = templateEngine.process(templateName, context);</span>
+
+<span class="nc" id="L27">        MimeMessage mimeMessage = emailSender.createMimeMessage();</span>
+<span class="nc" id="L28">        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, &quot;utf-8&quot;);</span>
+
+<span class="nc" id="L30">        helper.setTo(to);</span>
+<span class="nc" id="L31">        helper.setSubject(subject);</span>
+<span class="nc" id="L32">        helper.setText(htmlBody, true);</span>
+
+<span class="nc" id="L34">        emailSender.send(mimeMessage);</span>
+
+<span class="nc" id="L36">        return htmlBody;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

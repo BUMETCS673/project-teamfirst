@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">metcs673-notification-service</a> &gt; <a href="index.source.html" class="el_package">edu.bu.metcs673_notification_service.controller</a> &gt; <span class="el_source">NotificationController.java</span></div><h1>NotificationController.java</h1><pre class="source lang-java linenums">package edu.bu.metcs673_notification_service.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.bu.metcs673_notification_service.config.RabbitMQConfig;
+import edu.bu.metcs673_notification_service.entity.NotificationEntity;
+import edu.bu.metcs673_notification_service.service.EmailMessage;
+import edu.bu.metcs673_notification_service.observerpattern.NotificationStatusService;
+import io.micrometer.observation.annotation.Observed;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@Observed
+@RequestMapping(&quot;/v1/notifications&quot;)
+@CrossOrigin(origins = &quot;*&quot;)
+@Tag(name = &quot;Notification Management&quot;, description = &quot;APIs for managing notifications&quot;)
+public class NotificationController {
+
+    private RabbitTemplate customRabbitTemplate;
+    private ObjectMapper objectMapper;
+    private NotificationStatusService notificationStatusService;
+
+    @Autowired
+<span class="fc" id="L33">    public NotificationController(RabbitTemplate customRabbitTemplate, ObjectMapper objectMapper, NotificationStatusService notificationStatusService) {</span>
+<span class="fc" id="L34">        this.customRabbitTemplate = customRabbitTemplate;</span>
+<span class="fc" id="L35">        this.objectMapper = objectMapper;</span>
+<span class="fc" id="L36">        this.notificationStatusService = notificationStatusService;</span>
+<span class="fc" id="L37">    }</span>
+
+    @Operation(summary = &quot;Send an email notification&quot;, description = &quot;Endpoint to send an email notification.&quot;)
+    @PostMapping(&quot;/send-email&quot;)
+    public ResponseEntity&lt;String&gt; sendEmailMessage(@RequestBody EmailMessage emailMessage) {
+        try {
+<span class="fc" id="L43">            String message = objectMapper.writeValueAsString(emailMessage);</span>
+<span class="fc" id="L44">            customRabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, &quot;&quot;, message);</span>
+
+            // Prepare the template model
+<span class="fc" id="L47">            Map&lt;String, Object&gt; templateModel = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L48">            templateModel.put(&quot;name&quot;, emailMessage.getName());</span>
+<span class="fc" id="L49">            templateModel.put(&quot;message&quot;, emailMessage.getBody());</span>
+
+            // Generate HTML content for the email
+<span class="fc" id="L52">            String emailContent = notificationStatusService.generateEmailContent(emailMessage.getTo(), emailMessage.getSubject(), &quot;emailTemplate&quot;, templateModel);</span>
+
+<span class="fc" id="L54">            notificationStatusService.saveNotification(emailMessage, &quot;sent&quot;, emailContent); // Save notification to database with status &quot;sent&quot;</span>
+
+<span class="fc" id="L56">            return ResponseEntity.ok(&quot;Email sent to RabbitMQ&quot;);</span>
+<span class="nc" id="L57">        } catch (JsonProcessingException e) {</span>
+<span class="nc" id="L58">            return ResponseEntity.status(500).body(&quot;Failed to send email: &quot; + e.getMessage());</span>
+        }
+    }
+
+    @Operation(summary = &quot;Get email notification status&quot;, description = &quot;Endpoint to retrieve the status of an email notification by its message ID.&quot;)
+    @GetMapping(&quot;/status/{messageId}&quot;)
+    public ResponseEntity&lt;String&gt; getNotificationStatus(@Parameter(description = &quot;ID of the message to get the status for&quot;) @PathVariable String messageId) {
+        try {
+<span class="fc" id="L66">            String status = notificationStatusService.getStatusById(messageId);</span>
+<span class="fc" id="L67">            return ResponseEntity.ok(&quot;Notification status: &quot; + status);</span>
+<span class="nc" id="L68">        } catch (Exception e) {</span>
+<span class="nc" id="L69">            return ResponseEntity.status(500).body(&quot;Failed to get status: &quot; + e.getMessage());</span>
+        }
+    }
+    @Operation(summary = &quot;Update an email notification&quot;, description = &quot;Endpoint to update an existing email notification.&quot;)
+
+    @PutMapping(&quot;/update-email/{messageId}&quot;)
+    public ResponseEntity&lt;String&gt; updateEmailMessage(@PathVariable String messageId, @RequestBody EmailMessage emailMessage) {
+        try {
+            // Retrieve existing notification
+<span class="fc" id="L78">            NotificationEntity existingNotification = notificationStatusService.getNotificationById(messageId);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (existingNotification == null) {</span>
+<span class="nc" id="L80">                return ResponseEntity.status(404).body(&quot;Notification not found&quot;);</span>
+            }
+
+            // Update the existing notification with new details
+<span class="fc" id="L84">            existingNotification.setTo(emailMessage.getTo());</span>
+<span class="fc" id="L85">            existingNotification.setSubject(emailMessage.getSubject());</span>
+<span class="fc" id="L86">            existingNotification.setBody(emailMessage.getBody());</span>
+<span class="fc" id="L87">            existingNotification.setName(emailMessage.getName());</span>
+<span class="fc" id="L88">            existingNotification.setStatus(&quot;updated&quot;);</span>
+
+            // Save updated notification
+<span class="fc" id="L91">            notificationStatusService.saveNotification(existingNotification);</span>
+
+            // send an update message to RabbitMQ
+<span class="fc" id="L94">            String message = objectMapper.writeValueAsString(existingNotification);</span>
+<span class="fc" id="L95">            customRabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, &quot;&quot;, message);</span>
+
+<span class="fc" id="L97">            return ResponseEntity.ok(&quot;Email notification updated&quot;);</span>
+<span class="nc" id="L98">        } catch (JsonProcessingException e) {</span>
+<span class="nc" id="L99">            return ResponseEntity.status(500).body(&quot;Failed to update email: &quot; + e.getMessage());</span>
+        }
+    }
+    @Operation(summary = &quot;Delete an email notification&quot;, description = &quot;Endpoint to delete an existing email notification by its message ID.&quot;)
+    @DeleteMapping(&quot;/delete-email/{messageId}&quot;)
+    public ResponseEntity&lt;String&gt; deleteEmailMessage(@Parameter(description = &quot;ID of the message to delete&quot;) @PathVariable String messageId) {
+        try {
+            // Check if the notification exists
+<span class="fc" id="L107">            NotificationEntity existingNotification = notificationStatusService.getNotificationById(messageId);</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">            if (existingNotification == null) {</span>
+<span class="nc" id="L109">                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Notification not found&quot;);</span>
+            }
+
+            // Delete the notification
+<span class="fc" id="L113">            notificationStatusService.deleteNotification(existingNotification);</span>
+
+<span class="fc" id="L115">            return ResponseEntity.ok(&quot;Email notification deleted&quot;);</span>
+<span class="nc" id="L116">        } catch (Exception e) {</span>
+<span class="nc" id="L117">            return ResponseEntity.status(404).body(&quot;Failed to delete email: &quot; + e.getMessage());</span>
+        }
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

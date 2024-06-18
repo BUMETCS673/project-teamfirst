@@ -48,7 +48,7 @@ public class UsersServiceImpl implements UserService {
     
     private boolean isUserProfileAlreadyExist(String username, String email
     		,String identityProviderId ) {
-    	return   Objects.nonNull(userRepository.findByIdentityProviderId(identityProviderId))
+    	return   userRepository.findByIdentityProviderId(identityProviderId).isPresent()
     			|| Objects.nonNull(userRepository.findByUsername(username))
     			|| Objects.nonNull(userRepository.findByEmail(email));
     }
@@ -83,7 +83,7 @@ public class UsersServiceImpl implements UserService {
 			User user = mapper.toEntity(registrationRequest);
 			user.setIdentityProviderId(identityProviderId);
 			UserDto userDto = this.mapper.toDto(userRepository.save(user));
-			userDto.setPermissioins(TokenUtils.getClaims());
+			userDto.setPermissions(TokenUtils.getClaims());
 			if(log.isDebugEnabled()) {
 				log.info("User with email:{}, username:{}, Identity Id:{} registered successfully.", 
 						registrationRequest.getUsername(), registrationRequest.getEmail(),user.getIdentityProviderId());
@@ -112,7 +112,7 @@ public class UsersServiceImpl implements UserService {
 			}
 			
 			UserDto userDto = this.mapper.toDto(user.get());
-			userDto.setPermissioins(TokenUtils.getClaims());
+			userDto.setPermissions(TokenUtils.getClaims());
 			return this.mapper.toDto(user.get());
 		
 		}catch(InvalidUserAccountException ex) {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.bu.metcs673_notification_service.config.SwaggerConfigTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-17T22:18:55" hostname="Chaozhengs-MacBook-Pro.local" time="1.265">
+  <properties/>
+  <testcase name="testCustomOpenAPI()" classname="edu.bu.metcs673_notification_service.config.SwaggerConfigTest" time="1.265"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.6)
+
+2024-06-17T15:18:54.631-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] e.b.m.config.SwaggerConfigTest           : Starting SwaggerConfigTest using Java 17.0.11 with PID 25946 (started by chaozhengzhu in /Users/chaozhengzhu/codes/spring-alert-iteration3/project-teamfirst/code/metcs673-notification-service)
+2024-06-17T15:18:54.635-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] e.b.m.config.SwaggerConfigTest           : No active profile set, falling back to 1 default profile: "default"
+2024-06-17T15:18:55.854-07:00  INFO [,] 25946 --- [metcs673-notification-service] [    Test worker] e.b.m.config.SwaggerConfigTest           : Started SwaggerConfigTest in 3.503 seconds (process running for 6.145)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

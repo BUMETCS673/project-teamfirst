@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.okta.spring:okta-spring-boot-starter:3.0.6" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.okta.spring" artifactId="okta-spring-boot-starter" version="3.0.6" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.okta.spring/okta-spring-boot-starter/3.0.6/c7af7975637ce94ac47887dcda41056d91da84f/okta-spring-boot-starter-3.0.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -40,7 +40,7 @@ public class UserDto implements Serializable {
   private String city;
   private String state;
   private UserRole userRole;
-  private List<String> permissioins;
+  private List<String> permissions;
   
   
   private String postalCode;

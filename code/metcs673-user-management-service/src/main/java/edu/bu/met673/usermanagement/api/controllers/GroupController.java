@@ -74,7 +74,7 @@ public class GroupController {
     
     @Operation(summary = "Get all groups", description = "Endpoint to retrieve all groups with optional filtering.")
     @PreAuthorize(Permissions.VIEW_GROUP)
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<GroupDto>> getAllGroups(
             @Parameter(description = "Filter criteria") @RequestParam(name="filter", defaultValue = "") String filter) {
         return ResponseEntity.ok().body(this.userGroupService.searchGroups(filter));
@@ -82,7 +82,7 @@ public class GroupController {
 
     @Operation(summary = "Create a user group", description = "Endpoint to create a new user group.")
     @PreAuthorize(Permissions.CREATE_GROUP)
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<GroupDto> createUserGroup(
             @RequestBody GroupDto groupDto) {
         return ResponseEntity.ok().body(this.userGroupService.createGroup(groupDto));

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.amqp:spring-rabbit-test:3.1.5" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.springframework.amqp" artifactId="spring-rabbit-test" version="3.1.5" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.amqp/spring-rabbit-test/3.1.5/8e3b4d9674c0cd90afde343ae086033d2d1a93fc/spring-rabbit-test-3.1.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.amqp/spring-rabbit-test/3.1.5/c33f1d3663cf756b3940b673a9bc7da478801d9b/spring-rabbit-test-3.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
