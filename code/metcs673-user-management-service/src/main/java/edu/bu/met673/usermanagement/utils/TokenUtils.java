@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -29,6 +30,7 @@ public final class TokenUtils {
 					.getAuthorities().stream().map(authority->authority.getAuthority()).toList();
 		
 		}catch(Exception ex) {
+			ex.printStackTrace();
 			return List.of();
 		}
 	}

@@ -65,7 +65,7 @@ public class UserController {
         return ResponseEntity.ok().body(this.userService.getUserProfile(userId));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     @PreAuthorize(Permissions.VIEW_PROFILE)
     @Operation(summary = "Get all user profiles", description = "Fetches profiles of users with optional filters and pagination.")
     @ApiResponses(value = {
