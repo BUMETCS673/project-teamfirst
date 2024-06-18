@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">metcs673-notification-service</a> &gt; <a href="index.source.html" class="el_package">edu.bu.metcs673_notification_service.entity</a> &gt; <span class="el_source">NotificationEntity.java</span></div><h1>NotificationEntity.java</h1><pre class="source lang-java linenums">package edu.bu.metcs673_notification_service.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = &quot;notification_entity&quot;)
+<span class="fc" id="L10">public class NotificationEntity {</span>
+
+    @Id
+    @Column(name = &quot;message_id&quot;, nullable = false)
+    private String messageId;
+
+    @Column(nullable = false)
+    private String to;
+
+    @Column(nullable = false)
+    private String subject;
+
+    @Column(nullable = false)
+    private String body;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false, columnDefinition = &quot;TEXT&quot;)
+    private String emailContent;
+
+    // Getters and Setters
+    public String getMessageId() {
+<span class="nc" id="L36">        return messageId;</span>
+    }
+
+    public void setMessageId(String messageId) {
+<span class="fc" id="L40">        this.messageId = messageId;</span>
+<span class="fc" id="L41">    }</span>
+
+    public String getTo() {
+<span class="nc" id="L44">        return to;</span>
+    }
+
+    public void setTo(String to) {
+<span class="fc" id="L48">        this.to = to;</span>
+<span class="fc" id="L49">    }</span>
+
+    public String getSubject() {
+<span class="nc" id="L52">        return subject;</span>
+    }
+
+    public void setSubject(String subject) {
+<span class="fc" id="L56">        this.subject = subject;</span>
+<span class="fc" id="L57">    }</span>
+
+    public String getBody() {
+<span class="nc" id="L60">        return body;</span>
+    }
+
+    public void setBody(String body) {
+<span class="fc" id="L64">        this.body = body;</span>
+<span class="fc" id="L65">    }</span>
+
+    public String getName() {
+<span class="nc" id="L68">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L72">        this.name = name;</span>
+<span class="fc" id="L73">    }</span>
+
+    public String getStatus() {
+<span class="fc" id="L76">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="fc" id="L80">        this.status = status;</span>
+<span class="fc" id="L81">    }</span>
+
+    public String getEmailContent() {
+<span class="fc" id="L84">        return emailContent;</span>
+    }
+
+    public void setEmailContent(String emailContent) {
+<span class="fc" id="L88">        this.emailContent = emailContent;</span>
+<span class="fc" id="L89">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

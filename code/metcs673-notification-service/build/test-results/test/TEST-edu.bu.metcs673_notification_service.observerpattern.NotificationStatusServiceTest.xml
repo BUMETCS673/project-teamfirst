@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-06-17T22:19:00" hostname="Chaozhengs-MacBook-Pro.local" time="0.417">
+  <properties/>
+  <testcase name="testGetStatusById_NotFound()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.395"/>
+  <testcase name="testUpdateStatus()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.011"/>
+  <testcase name="testGetStatusById()" classname="edu.bu.metcs673_notification_service.observerpattern.NotificationStatusServiceTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

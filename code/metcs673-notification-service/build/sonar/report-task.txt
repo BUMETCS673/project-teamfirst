@@ -2,5 +2,5 @@ projectKey=edu.bu:metcs673-notification-service
 serverUrl=http://localhost:9000
 serverVersion=9.9.5.90363
 dashboardUrl=http://localhost:9000/dashboard?id=edu.bu%3Ametcs673-notification-service
-ceTaskId=AZAijMqKb1h14umOZdWH
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AZAijMqKb1h14umOZdWH
+ceTaskId=AZAoSI28q8oI4GXFfTBE
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AZAoSI28q8oI4GXFfTBE
